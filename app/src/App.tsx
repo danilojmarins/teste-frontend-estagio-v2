@@ -2,11 +2,16 @@ import React from 'react';
 import './App.css';
 import { MapContainer, TileLayer, useMap, Popup, Marker } from 'react-leaflet';
 import equipmentPosition from './data/equipmentPositionHistory.json';
+import CollectionsJoin from './collectionsJoin';
 
 function App() {
 
   let positionDateArrMS = [];
   let positionDateArrYMD = [];
+
+  const lastPositionArr = [];
+
+  const options = { weekday: 'short', day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' } as const;
 
   for (let i = 0; i < equipmentPosition.length; i++) {
 
@@ -29,33 +34,37 @@ function App() {
           "lat": equipmentPosition[i].positions[k].lat,
           "lon": equipmentPosition[i].positions[k].lon
         }
-        console.log(lastPosition);
+        lastPositionArr.push(lastPosition);
       }
     }
-
 
     positionDateArrMS = [];
     positionDateArrYMD = [];
 
   }
 
+  console.log(lastPositionArr);
+
+  CollectionsJoin();
 
   return (
     <div className="App">
-      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true}>
+      <MapContainer center={[-19, -46]} zoom={8} scrollWheelZoom={true}>
 
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-      
 
-        <Marker position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {lastPositionArr.map(equip => (
+          <Marker key={equip.equipmentId} position={[equip.lat, equip.lon]}>
+            <Popup>
+              <p>{equip.equipmentId}</p>
+              <p>{equip.date.toLocaleString('pt-BR', options)}</p>
+            </Popup>
+          </Marker>
+        ))}
 
       </MapContainer>
     </div>
