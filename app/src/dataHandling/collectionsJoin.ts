@@ -1,8 +1,8 @@
-import equipment from './data/equipment.json';
-import equipmentModel from './data/equipmentModel.json';
-import equipmentPositionHistory from './data/equipmentPositionHistory.json';
-import equipmentState from './data/equipmentState.json';
-import equipmentStateHistory from './data/equipmentStateHistory.json';
+import equipment from '../data/equipment.json';
+import equipmentModel from '../data/equipmentModel.json';
+import equipmentPositionHistory from '../data/equipmentPositionHistory.json';
+import equipmentState from '../data/equipmentState.json';
+import equipmentStateHistory from '../data/equipmentStateHistory.json';
 import LastState from './lastState';
 import LastPosition from './lastPosition';
 
@@ -27,8 +27,6 @@ const CollectionsJoin = () => {
             }
         }
     }
-
-    console.log(equipmentModelArray);
 
     let stateArr: any = [];
     const equipmentStatesHistoryArray = [];
@@ -60,8 +58,6 @@ const CollectionsJoin = () => {
         stateArr = [];
     }
 
-    console.log(equipmentStatesHistoryArray);
-
     const equipmentModelStateArray = [];
 
     for (let k = 0; k < equipmentModelArray.length; k++) {
@@ -81,8 +77,6 @@ const CollectionsJoin = () => {
             }
         }
     }
-
-    console.log(equipmentModelStateArray);
 
     const equipmentModelStatePositionArray = [];
 
@@ -104,8 +98,6 @@ const CollectionsJoin = () => {
             }
         }
     }
-
-    console.log(equipmentModelStatePositionArray);
 
     const equipmentModelStatePositionLastArray = [];
 
@@ -130,8 +122,6 @@ const CollectionsJoin = () => {
             }
         }
     }
-
-    console.log(equipmentModelStatePositionLastArray);
 
     const globalCollection = [];
 
@@ -159,8 +149,6 @@ const CollectionsJoin = () => {
             }
         }
     }
-
-    console.log(globalCollection);
 
     return globalCollection;
 

@@ -4,8 +4,8 @@
 }
 
 .stateHistory {
-  width: 400px;
-  height: 200px;
+  width: 200px;
+  height: 400px;
   background-color: white;
   color: black;
   visibility: visible;
@@ -13,4 +13,10 @@
   left: 100px;
   top: 100px;
   z-index: 100000;
+}
+
+.state {
+  z-index: 1000000000;
+  background-color: black;
+  visibility: visible;
 }

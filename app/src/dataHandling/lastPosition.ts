@@ -1,4 +1,4 @@
-import equipmentPosition from './data/equipmentPositionHistory.json';
+import equipmentPosition from '../data/equipmentPositionHistory.json';
 
 
 const LastPosition = () => {
@@ -18,17 +18,17 @@ const LastPosition = () => {
         }
 
         const lastDateMS = positionDateArrMS.sort();
-        //console.log(lastDateMS[lastDateMS.length - 1]);
 
         for (let k = 0; k < positionDateArrYMD.length; k++) {
             if (lastDateMS[lastDateMS.length - 1] === positionDateArrYMD[k].getTime()) {
-                //console.log(positionDateArrYMD[k]);
+    
                 let lastPosition = {
                 "equipmentId": equipmentPosition[i].equipmentId,
                 "date": positionDateArrYMD[k],
                 "lat": equipmentPosition[i].positions[k].lat,
                 "lon": equipmentPosition[i].positions[k].lon
                 }
+
                 lastPositionArr.push(lastPosition);
             }
         }
@@ -37,8 +37,6 @@ const LastPosition = () => {
         positionDateArrYMD = [];
 
     }
-
-    console.log(lastPositionArr);
 
     return lastPositionArr;
 

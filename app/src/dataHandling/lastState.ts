@@ -1,5 +1,5 @@
-import equipmentStateHistory from './data/equipmentStateHistory.json';
-import equipmentState from './data/equipmentState.json';
+import equipmentStateHistory from '../data/equipmentStateHistory.json';
+import equipmentState from '../data/equipmentState.json';
 
 
 const LastState = () => {
@@ -35,8 +35,6 @@ const LastState = () => {
         stateArr = [];
     }
 
-    //console.log(equipmentStatesHistoryArray);
-
 
     let stateDateArrMS = [];
     let stateDateArrYMD = [];
@@ -53,11 +51,10 @@ const LastState = () => {
         }
 
         const lastDateMS = stateDateArrMS.sort();
-        //console.log(lastDateMS[lastDateMS.length - 1]);
 
         for (let k = 0; k < stateDateArrYMD.length; k++) {
             if (lastDateMS[lastDateMS.length - 1] === stateDateArrYMD[k].getTime()) {
-                //console.log(stateDateArrYMD[k]);
+
                 let lastState = {
                 "equipmentId": equipmentStatesHistoryArray[i].equipmentId,
                 "date": stateDateArrYMD[k],
@@ -65,6 +62,7 @@ const LastState = () => {
                 "stateColor": equipmentStatesHistoryArray[i].states[k].stateColor,
                 "stateName": equipmentStatesHistoryArray[i].states[k].stateName,
                 }
+
                 lastStateArr.push(lastState);
             }
         }
@@ -73,8 +71,6 @@ const LastState = () => {
         stateDateArrYMD = [];
 
     }
-
-    console.log(lastStateArr);
 
     return lastStateArr;
 

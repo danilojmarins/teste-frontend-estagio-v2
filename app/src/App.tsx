@@ -1,10 +1,9 @@
 import React from 'react';
 import {useState} from 'react';
 import './App.css';
-import { MapContainer, TileLayer, useMap, Popup, Marker } from 'react-leaflet';
-import CollectionsJoin from './collectionsJoin';
+import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet';
+import CollectionsJoin from './dataHandling/collectionsJoin';
 import { myIconOperando, myIconParado, myIconManutencao } from './icon';
-import { isConditionalExpression } from 'typescript';
 
 function App() {
 
@@ -27,9 +26,10 @@ function App() {
 
   let states: any = [];
 
-  let statesArr: any = [];
+  let finalStates: any = [];
 
-  function log(equipId: string) {
+  async function log(equipId: string) {
+    setIsShown(current => !current);
     //states = [];
     console.log(globalCollection);
     for (let i = 0; i < globalCollection.length; i++) {
@@ -41,28 +41,21 @@ function App() {
           }
 
           states.push(stateModel);
-          console.log(states);
         }
-
-        console.log(states);
       }
     }
-
-    states.map((state: any) => (
-      statesArr.push(state)
-    ))
+    finalStates = await states;
+    ShowStateHistory(finalStates)
   }
 
-  function ShowStateHistory() {
-
-    setIsShown(current => !current);
-
-    console.log(statesArr);
+  function ShowStateHistory(finalStates: any) {
 
     return (
       <div className='stateHistory'>
-        {statesArr.map((state: any) => (
-          <p>{state}</p>
+        {states.map((state: any) => (
+          <div className='state' key={state.date}>
+            <p>{state.stateName}</p>
+          </div>
         ))}
       </div>
     )
@@ -84,7 +77,7 @@ function App() {
               <p>{equip.equipmentName}</p>
               <p>{equip.lastStateDate.toLocaleString('pt-BR', options)}</p>
               <p>{equip.lastStateName}</p>
-              <button onClick={() => {log(equip.equipmentId); ShowStateHistory()}}>Histórico de Estados</button>
+              <button onClick={() => {log(equip.equipmentId)}}>Histórico de Estados</button>
             </Popup>
           </Marker>
         ))}
