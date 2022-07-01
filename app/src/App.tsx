@@ -1,16 +1,21 @@
-import React from 'react';
-import {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet';
 import CollectionsJoin from './dataHandling/collectionsJoin';
 import { myIconOperando, myIconParado, myIconManutencao } from './icon';
 
-function App() {
+const App = () => {
+
+  type statesModelTypes = {
+    date: string,
+    stateName: string
+  }
 
   const options = { weekday: 'short', day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' } as const;
   const [isShown, setIsShown] = useState(false);
+  const [saveStates, setSaveStates] = useState<{ stateName: string; date: string }[]>([]);
 
-  function Icon(stateName: string) {
+  const Icon = (stateName: string) => {
     if (stateName === 'Operando') {
       return myIconOperando;
     }
@@ -24,39 +29,51 @@ function App() {
 
   const globalCollection = CollectionsJoin();
 
-  let states: any = [];
+  let states: { stateName: string; date: string }[] = [];
 
-  let finalStates: any = [];
-
-  async function log(equipId: string) {
+  const log = async (equipId: string) => {
+    
     setIsShown(current => !current);
-    //states = [];
+
     console.log(globalCollection);
     for (let i = 0; i < globalCollection.length; i++) {
       if (globalCollection[i].equipmentId === equipId) {
         for (let j = 0; j < globalCollection[i].equipmentStateHistory.length; j++) {
-          let stateModel =  {
+          let stateModel: statesModelTypes =  {
             "date": globalCollection[i].equipmentStateHistory[j].date,
             "stateName": globalCollection[i].equipmentStateHistory[j].stateName
           }
-
+          
           states.push(stateModel);
+          setSaveStates(states);
         }
       }
     }
-    finalStates = await states;
-    ShowStateHistory(finalStates)
+    console.log(states);
   }
 
-  function ShowStateHistory(finalStates: any) {
+  const ShowStateHistory = () => {
+
+    console.log(saveStates);
 
     return (
-      <div className='stateHistory'>
-        {states.map((state: any) => (
-          <div className='state' key={state.date}>
-            <p>{state.stateName}</p>
-          </div>
-        ))}
+      <div className='stateHistory'>         
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {saveStates.map(state => (
+              <tr key={state.date}>
+                <td>{new Date(state.date).toLocaleString('pt-BR', options)}</td>
+                <td>{state.stateName}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -81,7 +98,6 @@ function App() {
             </Popup>
           </Marker>
         ))}
-
 
       </MapContainer>
 

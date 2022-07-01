@@ -9,6 +9,18 @@ import LastPosition from './lastPosition';
 
 const CollectionsJoin = () => {
 
+    interface statesInterface {
+        "date": string,
+        "equipmentStateId": string,
+        "stateName": string,
+        "stateColor": string
+    }
+
+    interface equipmentStateModelInterface {
+        "equipmentId": string,
+        "states": statesInterface[]
+    }
+
     const equipmentModelArray = [];
 
     for (let i = 0; i < equipment.length; i++) {
@@ -28,7 +40,7 @@ const CollectionsJoin = () => {
         }
     }
 
-    let stateArr: any = [];
+    let stateArr: statesInterface[] = [];
     const equipmentStatesHistoryArray = [];
 
     for (let y = 0; y < equipmentStateHistory.length; y++) {
@@ -36,7 +48,7 @@ const CollectionsJoin = () => {
             for (let p = 0; p < equipmentState.length; p++) {
                 if (equipmentState[p].id === equipmentStateHistory[y].states[x].equipmentStateId){
 
-                    let states = {
+                    let states: statesInterface = {
                         "date": equipmentStateHistory[y].states[x].date,
                         "equipmentStateId": equipmentStateHistory[y].states[x].equipmentStateId,
                         "stateName": equipmentState[p].name,
@@ -48,7 +60,7 @@ const CollectionsJoin = () => {
             }
         }
 
-        let equipmentStateModel = {
+        let equipmentStateModel: equipmentStateModelInterface = {
             "equipmentId": equipmentStateHistory[y].equipmentId,
             "states": stateArr
         }
