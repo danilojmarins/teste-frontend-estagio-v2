@@ -61,6 +61,9 @@ const App = () => {
         <table>
           <thead>
             <tr>
+              <th className='table-title' colSpan={2}>Histórico de Estados <button className='table-close' onClick={() => setIsShown(current => !current)}>X</button></th>
+            </tr>
+            <tr>
               <th>Data</th>
               <th>Estado</th>
             </tr>

@@ -4,8 +4,8 @@
 }
 
 .stateHistory {
-  width: 400px;
   height: 400px;
+  overflow-y: scroll;
   background-color: white;
   color: black;
   visibility: visible;
@@ -13,9 +13,51 @@
   left: 100px;
   top: 100px;
   z-index: 100000;
+  border-radius: 10px;
+}::-webkit-scrollbar {
+  width: 10px;
+}::-webkit-scrollbar-track {
+  background-color: #F1F1F1;
+  border-radius: 5px;
+}::-webkit-scrollbar-thumb {
+  background-color: #AAA;
+  border-radius: 5px;
 }
 
 .state {
   z-index: 1000000000;
   visibility: visible;
+}
+
+table, th, td {
+  border-bottom: 1px solid #ddd;
+  border-collapse: collapse;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #DDD;
+}
+
+.table-title {
+  text-align: center;
+  background-color: #BBB;
+}
+
+.table-close {
+  border: none;
+  background-color: #FF7F7F;
+  width: 30px;
+  height: 25px;
+  font-weight: bold;
+  border-radius: 2px;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  cursor: pointer;
+}
+
+.table-close:hover {
+  background-color: red;
 }
